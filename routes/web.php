@@ -24,3 +24,6 @@ Route::get('/my_user', [App\Http\Controllers\MyUserController::class, 'showUser'
 
 Route::get('/redirect_test', App\Http\Controllers\TestRedirectController::class);
 Route::get('/send_file', App\Http\Controllers\SendFileController::class);
+
+Route::get('/userform', [App\Http\Controllers\FormProcessor::class, 'index']);
+Route::post('/store_form', [App\Http\Controllers\FormProcessor::class, 'store']);
