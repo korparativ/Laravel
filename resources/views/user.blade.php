@@ -5,18 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User information</title>
 </head>
 
-<body>
-    <h2>List of Users Blade</h2>
+<body @if ($user['id'] == 1) style="background-color: yellow" @endif>
+    <h2>User information</h2>
     <table border="2">
-        @foreach ($users as $user)
-            <tr>
-                <td>{{ $user->first_name }}</td>
-                <td>{{ $user->email }}</td>
-            </tr>
-        @endforeach
+        <tr>
+            <td>Username: </td>
+            <td>{{ $user['username'] }}</td>
+        </tr>
+        <tr>
+            <td>First name: </td>
+            <td>{{ $user['first_name'] }}</td>
+        </tr>
+        <tr>
+            <td>Last name: </td>
+            <td>{{ $user['last_name'] }}</td>
+        </tr>
+        <tr>
+            <td>List of books: </td>
+            <td>
+                @foreach ($user['list_of_books'] as $item)
+                    {{ $item }} <br>
+                @endforeach
+            </td>
+        </tr>
     </table>
 </body>
 
