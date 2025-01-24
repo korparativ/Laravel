@@ -47,3 +47,13 @@ Route::get('/users_list', function(){
 Route::get('/upper', function(){
     return view('testdir');
 });
+
+Route::get('/home', function(){
+    $users = ['name'=>'Ivan', 'age'=>18, 'position'=>3, 'address'=>'Moscow'];
+    return view('home', ['users' => $users]);
+});
+
+Route::get('/contacts', function(){
+    $values = ['address'=>'Rostov', 'post_code'=>2143, 'email'=>'', 'phone'=>'987465'];
+    return view('contacts', ['values' => $values]);
+});
