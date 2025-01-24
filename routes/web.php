@@ -34,3 +34,16 @@ Route::get('/test_database', function () {
         $employee = new Employee();
         $employee->save();
     });
+
+Route::get('/main', function (){
+    return view('mainpage');
+});
+
+Route::get('/users_list', function(){
+    $users = ['Ivan', 'Petr', 'Nikolai', 'Semen', 'Oleg'];
+    return view('users', ['users' => $users]);
+});
+
+Route::get('/upper', function(){
+    return view('testdir');
+});
