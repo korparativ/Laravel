@@ -11,4 +11,5 @@ class Employee extends Model
     use HasFactory;
     public $timestamps = true;
     public $incrementing = true;
+    protected $fillable = ['first_name', 'last_name', 'address', 'email', 'workData', 'textarea'];
 }
