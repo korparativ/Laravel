@@ -31,4 +31,12 @@ class FileUploadController extends Controller
         echo $request->header('host') . '/public/uploads/' . $newFileName;
         return response ($request->header('host') . '/public/uploads/' . $newFileName)->cookie('number_of_uploads', $number);
     }
+
+    public function showForm(){
+
+    }
+
+    public function fileUpload(){
+
+    }
 }

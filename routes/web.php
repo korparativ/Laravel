@@ -57,3 +57,11 @@ Route::get('/contacts', function(){
     $values = ['address'=>'Rostov', 'post_code'=>2143, 'email'=>'', 'phone'=>'987465'];
     return view('contacts', ['values' => $values]);
 });
+
+Route::post('/test_request', [App\Http\Controllers\RequestTestController::class, 'testRequest']);
+
+Route::get('/testHeader', [App\Http\Controllers\TestHeaderController::class, 'getHeader']);
+
+Route::get('/test_cookie', [App\Http\Controllers\TestCookieController::class, 'testCookie']);
+
+Route::post('/json_parse', [App\Http\Controllers\JsonParseController::class, 'parseJson']);
