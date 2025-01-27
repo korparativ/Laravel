@@ -71,3 +71,6 @@ Route::get('get-employee-data', [App\Http\Controllers\EmployeeController::class,
 Route::post('store-form', [App\Http\Controllers\EmployeeController::class, 'store']);
 
 Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'update']);
+
+Route::get('/index', [App\Http\Controllers\BookController::class, 'index'])->name('book_add');
+Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('book_store');
