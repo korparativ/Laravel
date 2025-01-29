@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Employee;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -74,3 +75,65 @@ Route::put('/user/{id}', [App\Http\Controllers\EmployeeController::class, 'updat
 
 Route::get('/index', [App\Http\Controllers\BookController::class, 'index'])->name('book_add');
 Route::post('/store', [App\Http\Controllers\BookController::class, 'store'])->name('book_store');
+
+Route::get('/test_cookies', function(){
+    return response('My first cookie')
+    ->cookie('my_test_cookie', 'test content', 5)
+    ->withHeaders(['X-HEADER-TEST3' => 'IT WORKS!',
+     'X-HEADER-TEST4' => 'IT WORKS!',
+     'X-HEADER-TEST5' => 'IT WORKS!'])
+     ->withoutCookie('my_test_cookie2');
+});
+
+Route::get('/counter', function(){
+    $counterValue = session('counter', 0);
+    $counterValue++;
+    session(['counter' => $counterValue]);
+    return 'ok';
+});
+Route::get('/result_counter', function(){
+    // $counterValue = session('counter', 0);
+    // return $counterValue;
+
+    // var_dump(session()->all());
+
+    if(session()->has('counter')){
+        session()->forget('counter');
+    }
+    var_dump(session()->all());
+});
+
+Route::get('/list_of_books', function(){
+    $listOfBooks = session()->get('list_of_books', '');
+
+    return response()->json(['status' => 'received', 'list_of_books' => $listOfBooks ? unserialize($listOfBooks) : 'the list is empty']);
+});
+Route::post('/list_of_books', function(Request $request){
+    $listOfBooks = session()->get('list_of_books', '');
+    $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
+    $listOfBooks[] = ['author' => $request->get('author'), 'title' => $request->get('title')];
+
+    session()->put('list_of_books', serialize($listOfBooks));
+
+    return response()->json(['status' => 'saved', 'list_of_books' => $listOfBooks]);
+});
+Route::get('/list_of_books/{id}', function($id){
+    $listOfBooks = session()->get('list_of_books', '');
+    $listOfBooks = $listOfBooks ? unserialize($listOfBooks) : [];
+    if(array_key_exists($id, $listOfBooks)){
+        unset($listOfBooks[$id]);
+    }
+
+    return response()->json(['status' => 'deleted', 'list_of_books' => $listOfBooks]);
+});
+
+Route::get('/file_download', function(){
+    //return response()->download(base_path() . '/test.txt', 'my_test');
+
+    return response()->streamDownload(function(){
+        echo file_get_contents('https://www.google.com/');
+    });
+});
+Route::get('/file_show', function(){
+    return response()->file(base_path() . '/test.txt');
+});
