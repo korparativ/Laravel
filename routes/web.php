@@ -137,3 +137,7 @@ Route::get('/file_download', function(){
 Route::get('/file_show', function(){
     return response()->file(base_path() . '/test.txt');
 });
+
+Route::get('/users', [App\Http\Controllers\UsersController::class, 'index']);
+Route::post('/users_add', [App\Http\Controllers\UsersController::class, 'addUser'])->name('add_users');
+Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'getUser']);
