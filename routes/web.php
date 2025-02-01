@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\NewsCreated;
+use App\Models\News;
 use Illuminate\Support\Facades\Route;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -146,4 +148,15 @@ Route::get('/check_di', [App\Http\Controllers\TestDiController::class, 'showUrl'
 
 Route::get('/logs', function(){
     return view('logs');
+});
+
+Route::get('/event', function(){
+    NewsCreated::dispatch(\App\Models\News::first());
+});
+Route::get('/news_update', function(){
+    // News::withoutEvents(function(){
+    //     News::first()->update(['title' => 'Test 2']);
+    // });
+    News::first()->update(['title' => 'Test 3']);
+    return 'News updated';
 });
