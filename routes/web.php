@@ -1,7 +1,9 @@
 <?php
 
 use App\Events\NewsCreated;
+use App\Events\NnewsHidden;
 use App\Models\News;
+use App\Models\Nnews;
 use Illuminate\Support\Facades\Route;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -159,4 +161,21 @@ Route::get('/news_update', function(){
     // });
     News::first()->update(['title' => 'Test 3']);
     return 'News updated';
+});
+
+Route::get('/nnews', function(){
+    $news = new Nnews();
+    $news->title = 'Test news title 2';
+    $news->body = 'Test news body 2';
+
+    $news->save();
+    return $news;
+});
+Route::get('/nnews/{id}', function($id){
+    $news = Nnews::findOrFail($id);
+    $news->hidden = true;
+    $news->save();
+    NnewsHidden::dispatch(\App\Models\Nnews::first());
+
+    return 'News hidden';
 });
