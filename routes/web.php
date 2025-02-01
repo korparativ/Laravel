@@ -143,3 +143,7 @@ Route::post('/users_add', [App\Http\Controllers\UsersController::class, 'addUser
 Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'getUser']);
 
 Route::get('/check_di', [App\Http\Controllers\TestDiController::class, 'showUrl']);
+
+Route::get('/logs', function(){
+    return view('logs');
+});
