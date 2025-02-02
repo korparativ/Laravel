@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ClearCache;
 use App\Jobs\SyncNews;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -16,3 +17,4 @@ Schedule::call(function(){
 Schedule::command('app:app-dump-database')->everyMinute();
 //Schedule::job(SyncNews::class)->everyMinute();
 //Schedule::exec('touch storage/logs/test.log')->everyMinute();
+Schedule::job(ClearCache::class)->hourly();
