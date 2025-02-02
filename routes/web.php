@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\Nnews;
 use Illuminate\Support\Facades\Route;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -178,4 +179,37 @@ Route::get('/nnews/{id}', function($id){
     NnewsHidden::dispatch(\App\Models\Nnews::first());
 
     return 'News hidden';
+});
+
+Route::get('/sync-news', function(){
+    \App\Jobs\SyncNews::dispatch(15);
+    return response(['status' => 'success']);
+});
+
+Route::get('/locale', function(){
+    echo \Illuminate\Support\Facades\App::getLocale();
+});
+Route::get('/locale/set/{locale}', function ($locale) {
+    \Illuminate\Support\Facades\App::setLocale($locale);
+    echo \Illuminate\Support\Facades\App::getLocale();
+    echo '<hr>';
+    echo __('messsages.greet');
+});
+Route::get('/locale/{locale}/thanks', function($locale, Request $request){
+    \Illuminate\Support\Facades\App::setLocale($locale);
+    echo __('messsages.thanks', ['name' => $request->input('name')]);
+});
+
+Route::get('user/create-test/{amount}', function($amount){
+    return User::factory($amount)->create();
+});
+Route::get('user/{user}/change-email', function(User $user, Request $request){
+    $oldEmail = $user->email;
+    $user->email = $request->input('email');
+    $user->save();
+    $user->notify(new App\Notifications\UserEmailChangedNotification($oldEmail));
+    return response(['result' => 'email change']);
+});
+Route::get('user/{user}/notification', function(User $user){
+    return $user->notifications;
 });
