@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
 use App\Http\Middleware\LogRequestMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/log-ip', function(){
-    //     return response()->json(['status' => 'success']);
-    // });
-    // Route::get('log-request', [LogRequestMiddleware::class, 'handle']);
 });
 
 require __DIR__.'/auth.php';
@@ -29,3 +26,7 @@ Route::middleware('log-request')->group(function (){
          return response()->json(['status' => 'success']);
         });
 });
+
+
+Route::get('/users', [UsersController::class, 'index']);
+Route::get('/users/{user}', [UsersController::class, 'show']);
