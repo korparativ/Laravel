@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Welcome;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -44,6 +46,15 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        \Telegram\Bot\Laravel\Facades\Telegram::sendMessage([
+            'chat_id' => env('TELEGRAM_CHANNEL_ID'),
+            'parse_mod' => 'html',
+            'text' => 'Произошло тестовое событие'
+        ]);
+
+        $email = 'korparativ1990@gmail.com';
+        Mail::to($email)->send(new Welcome($user));
 
         return redirect(route('dashboard', absolute: false));
     }
