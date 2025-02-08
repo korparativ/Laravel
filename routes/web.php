@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\LogRequestMiddleware;

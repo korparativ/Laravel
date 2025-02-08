@@ -47,6 +47,8 @@ class User extends Authenticatable
         ];
     }
 
+    protected $with = ['hotels'];
+
     public function isAdmin(): bool {
         return optional($this->role())->title == 'admin';
         // return $this->getKey() == 1;
@@ -54,5 +56,9 @@ class User extends Authenticatable
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function hotels(){
+        return $this->hasMany(Hotel::class);
     }
 }
