@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,4 +23,8 @@ require __DIR__.'/auth.php';
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+
+Route::get('menu-test', function(){
+    return view('menu-test');
 });

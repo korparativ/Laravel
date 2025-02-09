@@ -1,5 +1,8 @@
 <?php
 
+use App\Admin\Widgets\NewsWidget;
+use TCG\Voyager\Widgets\UserDimmer;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -144,7 +147,8 @@ return [
         ],
 
         'widgets' => [
-
+            UserDimmer::class,
+            NewsWidget::class
         ],
 
     ],
