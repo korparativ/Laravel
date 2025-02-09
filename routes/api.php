@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('hotels', HotelController::class);
+Route::apiResource('products', \App\Http\Controllers\ProductController::class);
