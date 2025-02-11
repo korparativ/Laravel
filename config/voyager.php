@@ -148,7 +148,9 @@ return [
 
         'widgets' => [
             UserDimmer::class,
-            NewsWidget::class
+            NewsWidget::class,
+            \App\Admin\Widgets\ProductsWidget::class,
+            \App\Admin\Widgets\CategoriesWidget::class
         ],
 
     ],
